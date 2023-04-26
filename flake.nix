@@ -10,7 +10,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: Add any other flake you might need
     hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make
@@ -39,10 +38,7 @@
         extraSpecialArgs = { inherit inputs; inherit hyprland; }; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [ ./home-manager/home.nix 
-	hyprland.homeManagerModules.default
-	#hyprland.nixosModules.default
-	{wayland.windowManager.hyprland.enable = true;}
-	{wayland.windowManager.hyprland.extraConfig = builtins.readFile ./extrahypr.conf;}
+	      hyprland.homeManagerModules.default
       ];
       };
     };
