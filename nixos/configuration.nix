@@ -141,7 +141,7 @@
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-      amdvlk ];
+      mesa ];
   };
   programs.steam = {
     enable = true;
