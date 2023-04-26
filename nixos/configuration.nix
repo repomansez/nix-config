@@ -85,8 +85,17 @@
     ];
     # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
+      nixpkgs.config.packageOverrides = pkgs: {
+	steam = pkgs.steam.override {
+	  extraPkgs = pkgs:
+	    with pkgs; [
+	      libgdiplus
+	      zulu
+	    ];
+	};
+    };
       allowUnfree = true;
+      allowUnfreePredicate = (_: true);
     };
   };
 
@@ -134,6 +143,10 @@
     extraPackages = with pkgs; [
       amdvlk ];
   };
+  programs.steam = {
+    enable = true;
+  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";
 }

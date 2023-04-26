@@ -43,7 +43,7 @@
   fonts.fontconfig.enable = true;
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [ vim git foot firefox tdesktop discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts mononoki monocraft font-awesome_5];
+  home.packages = with pkgs; [ vim git foot firefox tdesktop discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts mononoki monocraft font-awesome_5 jellyfin-media-player breeze-qt5 breeze-gtk playerctl mpd mpdris2 libnotify dunst ];
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
@@ -51,7 +51,6 @@
 	userName = "repomansez";
 	userEmail = "sbctani@protonmail.com";
   };
-
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
@@ -64,6 +63,7 @@
 programs.waybar = {
       enable = true;
       package = hyprland.packages."x86_64-linux".waybar-hyprland;
+      "style" = ../dotfiles/style.css;
       settings = {
         mainBar = {
           layer = "top";
@@ -77,12 +77,13 @@ programs.waybar = {
           ];
           modules-right =  [
             #"mpd"
-          #  "wireplumber"
+            "pulseaudio"
             "temperature"
             "cpu"
             "memory"
             "clock"
           ];
+
           "mpd" = {
             "format" = "  {artist} - {album} - {title} {stateIcon}";
             "format-disconnected" = "";
@@ -127,7 +128,9 @@ programs.waybar = {
               "car" = "";
               "default" = [" " " " " "];
             };
-            "on-click" = "vol mute";
+            "on-click" = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+	    "on-scroll-up" = "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+";
+	    "on-scroll-down" = "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%-";
             "on-click-right" = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
           "clock" = {
