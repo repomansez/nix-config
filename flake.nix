@@ -42,7 +42,7 @@
 	hyprland.homeManagerModules.default
 	#hyprland.nixosModules.default
 	{wayland.windowManager.hyprland.enable = true;}
-	{wayland.windowManager.hyprland.extraConfig = "source=./extrahypr.conf";}
+	{wayland.windowManager.hyprland.extraConfig = builtins.readFile ./extrahypr.conf;}
       ];
       };
     };
