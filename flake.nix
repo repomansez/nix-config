@@ -15,8 +15,12 @@
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
+    # Hyprland shit
     hyprland.url = "github:hyprwm/Hyprland";
     hyprwm-contrib.url = "github:hyprwm/contrib";
+    # Anyrun shit
+    anyrun.url = "github:Kirottu/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -24,6 +28,7 @@
     home-manager,
     hyprland,
     hyprwm-contrib,
+    anyrun,
     ...
   } @ inputs: {
     # formatter ig
@@ -44,7 +49,7 @@
       # eplace with your username@hostname
       "nigerius@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib;}; # Pass flake inputs to our config
+        extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib anyrun;}; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [
           ./home-manager/home.nix

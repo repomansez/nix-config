@@ -7,6 +7,7 @@
   pkgs,
   hyprland,
   hyprwm-contrib,
+  anyrun,
   ...
 }: {
   # You can import other home-manager modules here
@@ -19,11 +20,13 @@
     # You can also split up your configuration and import pieces of it here:
     #./nvim.nix
     ./waybar.nix
+    ./anyrun.nix
   ];
 
   nixpkgs = {
     # You can add overlays here
     overlays = [
+      anyrun.overlay
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -52,7 +55,7 @@
   fonts.fontconfig.enable = true;
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [vim git foot firefox tdesktop discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts mononoki monocraft font-awesome_5 jellyfin-media-player breeze-qt5 breeze-gtk playerctl mpd mpdris2 libnotify dunst prismlauncher mpv inputs.hyprwm-contrib.packages.${system}.grimblast wine lutris];
+  home.packages = with pkgs; [vim git foot firefox tdesktop discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts mononoki monocraft font-awesome_5 jellyfin-media-player breeze-qt5 breeze-gtk playerctl mpd mpdris2 libnotify dunst prismlauncher mpv inputs.hyprwm-contrib.packages.${system}.grimblast wine lutris pkgs.anyrun];
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
