@@ -3,7 +3,7 @@
 
   inputs = {
     # Nixpkgs
-   # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
@@ -19,14 +19,22 @@
     hyprwm-contrib.url = "github:hyprwm/contrib";
   };
 
-  outputs = { nixpkgs, home-manager, hyprland, hyprwm-contrib, ... }@inputs: {
+  outputs = {
+    nixpkgs,
+    home-manager,
+    hyprland,
+    hyprwm-contrib,
+    ...
+  } @ inputs: {
+    # formatter ig
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; }; # Pass flake inputs to our config
+        specialArgs = {inherit inputs;}; # Pass flake inputs to our config
         # > Our main nixos configuration file <
-        modules = [ ./nixos/configuration.nix ];
+        modules = [./nixos/configuration.nix];
       };
     };
 
@@ -36,11 +44,12 @@
       # eplace with your username@hostname
       "nigerius@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs hyprland hyprwm-contrib; }; # Pass flake inputs to our config
+        extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib;}; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
-        modules = [ ./home-manager/home.nix 
-	      #hyprland.homeManagerModules.default
-      ];
+        modules = [
+          ./home-manager/home.nix
+          #hyprland.homeManagerModules.default
+        ];
       };
     };
   };

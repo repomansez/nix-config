@@ -1,7 +1,12 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
-{ inputs, lib, config, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
@@ -47,27 +52,31 @@
     LC_TELEPHONE = "pt_BR.UTF-8";
     LC_TIME = "pt_BR.UTF-8";
   };
-
+  # Extra filesystems
+  fileSystems."/home/nigerius/nfs" = {
+    device = "10.0.0.24:/home/sex";
+    fsType = "nfs";
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-};
+  };
   environment.systemPackages = with pkgs; [
     vim
     git
     rtkit
     pipewire
     wireplumber
-    ];
+  ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nigerius = {
     isNormalUser = true;
     description = "Niggerus Maximus";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ git vim home-manager ];
+    extraGroups = ["networkmanager" "wheel"];
+    packages = with pkgs; [git vim home-manager];
   };
 
   nixpkgs = {
@@ -86,23 +95,23 @@
     # Configure your nixpkgs instance
     config = {
       nixpkgs.config.packageOverrides = pkgs: {
-	steam = pkgs.steam.override {
-	  extraPkgs = pkgs:
-	    with pkgs; [
-	      libgdiplus
-	      zulu
-	    ];
-	};
-    };
+        steam = pkgs.steam.override {
+          extraPkgs = pkgs:
+            with pkgs; [
+              libgdiplus
+              zulu
+            ];
+        };
+      };
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -120,19 +129,18 @@
 
   #  Set your hostname
   networking.hostName = "nixos";
-  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+  networking.nameservers = ["1.1.1.1" "9.9.9.9"];
   # Policykit
   security.polkit.enable = true;
 
   # This is just an example, be sure to use whatever bootloader you prefer
   # boot.loader.systemd-boot.enable = true;
 
-
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   services.tor = {
-	enable = true;
-	client.enable = true;
+    enable = true;
+    client.enable = true;
   };
   services.openssh = {
     enable = true;
@@ -146,12 +154,13 @@
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-      mesa ];
+      mesa
+    ];
   };
   programs.steam = {
     enable = true;
   };
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";
 }
