@@ -120,6 +120,7 @@
 
   #  Set your hostname
   networking.hostName = "nixos";
+  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   # Policykit
   security.polkit.enable = true;
 
@@ -129,6 +130,10 @@
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
+  services.tor = {
+	enable = true;
+	client.enable = true;
+  };
   services.openssh = {
     enable = true;
     # Forbid root login through SSH.
