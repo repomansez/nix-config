@@ -29,7 +29,6 @@
       anyrun.overlay
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
-
       # Or define it inline, for example:
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {
@@ -53,7 +52,7 @@
   };
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [vim git foot firefox discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts noto-fonts-emoji noto-fonts-cjk mononoki monocraft font-awesome_5 jellyfin-media-player libsForQt5.breeze-qt5 libsForQt5.breeze-gtk libsForQt5.breeze-icons playerctl mpd mpdris2 libnotify dunst prismlauncher mpv inputs.hyprwm-contrib.packages.${system}.grimblast wine lutris pkgs.anyrun kotatogram-desktop nheko neochat ];
+  home.packages = with pkgs; [vim git foot firefox discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts noto-fonts-emoji noto-fonts-cjk mononoki monocraft font-awesome_5 jellyfin-media-player libsForQt5.breeze-qt5 libsForQt5.breeze-gtk libsForQt5.breeze-icons playerctl mpd mpdris2 libnotify dunst prismlauncher mpv inputs.hyprwm-contrib.packages.${system}.grimblast wine lutris pkgs.anyrun nheko neochat xonotic tdesktop ];
   # Enable home-manager and git
   # qt qt
   qt = {
@@ -62,8 +61,8 @@
       name = "breeze";
       package = pkgs.breeze-qt5;
     };
-    platformTheme = "gnome";
-  };  
+    platformTheme = "kde";
+  };
   # gtkaka
   gtk = {
     enable = true;
@@ -72,8 +71,8 @@
       package = pkgs.breeze-gtk;
     };
     iconTheme = {
-     name = "breeze";
-     package = pkgs.breeze-icons;
+      name = "breeze";
+      package = pkgs.breeze-icons;
     };
   };
   programs.home-manager.enable = true;

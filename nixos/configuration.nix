@@ -144,7 +144,7 @@
     fontconfig = {
       enable = true;
       antialias = true;
-   };
+    };
     fonts = with pkgs; [
       fira-code
       mononoki
