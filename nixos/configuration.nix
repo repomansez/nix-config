@@ -3,6 +3,11 @@
 {
   inputs,
   lib,
+  buildPackages,
+  buildLinux,
+  fetchurl,
+  perl,
+  nixosTests,
   config,
   pkgs,
   ...
@@ -18,6 +23,7 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+    ./linux-tkg.nix
   ];
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -57,6 +63,7 @@
     device = "10.0.0.24:/home/sex";
     fsType = "nfs";
   };
+  # RTkit and pipewire
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -132,7 +139,22 @@
   networking.nameservers = ["1.1.1.1" "9.9.9.9"];
   # Policykit
   security.polkit.enable = true;
-
+  # Font shit ig
+  fonts = {
+    fontconfig = {
+      enable = true;
+      antialias = true;
+   };
+    fonts = with pkgs; [
+      fira-code
+      mononoki
+      monocraft
+      font-awesome_5
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+    ];
+  };
   # This is just an example, be sure to use whatever bootloader you prefer
   # boot.loader.systemd-boot.enable = true;
 
@@ -160,6 +182,7 @@
   programs.steam = {
     enable = true;
   };
+  programs.dconf.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

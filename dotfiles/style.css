@@ -1,7 +1,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Monocraft, Helvetica, Arial, sans-serif;
-    font-size: 11px;
+    font-family: FontAwesome, Mononoki, Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 
 window#waybar {
