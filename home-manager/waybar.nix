@@ -7,8 +7,8 @@
     enable = true;
     package = hyprland.packages."x86_64-linux".waybar-hyprland;
     "style" = ../dotfiles/style.css;
-    settings = {
-      mainBar = {
+    settings = [
+      {
         layer = "top";
         position = "top";
         height = 24;
@@ -25,6 +25,7 @@
           "cpu"
           "memory"
           "clock"
+          "tray"
         ];
 
         "mpd" = {
@@ -85,7 +86,7 @@
         "memory" = {
           "format" = " {used:0.1f}G/{total:0.1f}G";
         };
-      };
-    };
+      }
+    ];
   };
 }

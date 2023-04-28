@@ -6,7 +6,8 @@
   config,
   pkgs,
   hyprland,
-  hyprwm-contrib,
+  xdph,
+  #hyprwm-contrib,
   anyrun,
   ...
 }: {
@@ -52,17 +53,66 @@
   };
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [vim git foot firefox discord neofetch grim slurp fira-code wl-clipboard pipewire wireplumber rtkit kitty wofi fuzzel noto-fonts noto-fonts-emoji noto-fonts-cjk mononoki monocraft font-awesome_5 jellyfin-media-player libsForQt5.breeze-qt5 libsForQt5.breeze-gtk libsForQt5.breeze-icons playerctl mpd mpdris2 libnotify dunst prismlauncher mpv inputs.hyprwm-contrib.packages.${system}.grimblast wine lutris pkgs.anyrun nheko neochat xonotic tdesktop ];
+  home.packages = with pkgs; [
+    vim
+    git
+    foot
+    firefox
+    discord
+    neofetch
+    grim
+    slurp
+    fira-code
+    wl-clipboard
+    pipewire
+    wireplumber
+    rtkit
+    kitty
+    wofi
+    fuzzel
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-cjk
+    mononoki
+    monocraft
+    font-awesome_5
+    jellyfin-media-player
+    libsForQt5.breeze-qt5
+    libsForQt5.breeze-gtk
+    libsForQt5.breeze-icons
+    playerctl
+    mpd
+    mpdris2
+    libnotify
+    dunst
+    prismlauncher
+    mpv
+    inputs.hyprwm-contrib.packages.${system}.grimblast
+    wine
+    lutris
+    pkgs.anyrun
+    nheko
+    neochat
+    xonotic
+    tdesktop
+    killall
+    wget
+    obs-studio
+    xdg-desktop-portal-hyprland
+    inputs.xdph.packages.${system}.hyprland-share-picker
+    pcsx2
+    rpcs3
+  ];
   # Enable home-manager and git
   # qt qt
-  qt = {
-    enable = true;
-    style = {
-      name = "breeze";
-      package = pkgs.breeze-qt5;
-    };
-    platformTheme = "kde";
-  };
+  # qt = {
+  #   enable = true;
+  #   style = {
+  #     name = "breeze";
+  #     package = pkgs.breeze-qt5;
+  #   };
+  #   platformTheme = "kde";
+  # };
   # gtkaka
   gtk = {
     enable = true;
@@ -85,7 +135,7 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
+  home.stateVersion = "22.11";
 
   wayland.windowManager.hyprland = {
     enable = true;

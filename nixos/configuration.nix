@@ -10,6 +10,7 @@
   nixosTests,
   config,
   pkgs,
+  hyprland,
   ...
 }: {
   # You can import other NixOS modules here
@@ -17,7 +18,7 @@
     # If you want to use modules from other flakes (such as nixos-hardware):
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
-
+    inputs.hyprland.nixosModules.default
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
 
@@ -77,6 +78,12 @@
     rtkit
     pipewire
     wireplumber
+    glxinfo
+    virtualgl
+    pciutils
+    libglvnd
+    mesa
+    vulkan-tools
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nigerius = {
@@ -91,7 +98,6 @@
     overlays = [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
-
       # Or define it inline, for example:
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {
@@ -102,6 +108,10 @@
     # Configure your nixpkgs instance
     config = {
       nixpkgs.config.packageOverrides = pkgs: {
+        #       xdg-desktop-portal-hyprland = inputs.xdph.packages.${prev.system}.default.override {
+        # hyprland-share-picker = inputs.xdph.packages.${prev.system}.hyprland-share-picker.override {inherit hyprland;};
+        #};
+
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
@@ -140,6 +150,14 @@
   # Policykit
   security.polkit.enable = true;
   # Font shit ig
+  qt = {
+    enable = true;
+    style = {
+      name = "breeze";
+      package = pkgs.breeze-qt5;
+    };
+    platformTheme = "kde";
+  };
   fonts = {
     fontconfig = {
       enable = true;
@@ -160,6 +178,11 @@
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
+  #  programs.hyprland = {
+  #    enable = true;
+  #    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #  };
+
   services.tor = {
     enable = true;
     client.enable = true;
@@ -171,18 +194,26 @@
     # Use keys only. Remove if you want to SSH using password (not recommended)
     passwordAuthentication = false;
   };
+  xdg.portal = with pkgs; {
+    enable = true;
+    #  wlr.enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+  };
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
       mesa
+      pkgs.mesa.drivers
+      vulkan-tools
     ];
   };
   programs.steam = {
     enable = true;
   };
   programs.dconf.enable = true;
+  services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";
