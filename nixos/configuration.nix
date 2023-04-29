@@ -16,8 +16,10 @@
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
+    inputs.hardware.nixosModules.common-cpu-amd
+    inputs.hardware.nixosModules.common-cpu-amd-pstate
+    inputs.hardware.nixosModules.common-pc-ssd
+    inputs.hardware.nixosModules.common-gpu-amd
     inputs.hyprland.nixosModules.default
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
@@ -63,6 +65,7 @@
   fileSystems."/home/nigerius/nfs" = {
     device = "10.0.0.24:/home/sex";
     fsType = "nfs";
+    options = [ "nfsvers=4.2" ];
   };
   # RTkit and pipewire
   security.rtkit.enable = true;
@@ -71,6 +74,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+  environment.sessionVariables = rec {
+    QT_STYLE_OVERRIDE = "kvantum";
   };
   environment.systemPackages = with pkgs; [
     vim
@@ -153,11 +159,25 @@
   qt = {
     enable = true;
     style = {
-      name = "breeze";
+      name = "Breeze-Dark";
       package = pkgs.breeze-qt5;
     };
     platformTheme = "kde";
   };
+  #gtk = {
+  #  enable = true;
+  #  iconTheme = {
+  #    package = pkgs.breeze-icons;
+  #    name = "breeze-dark";
+  #  };
+  #  theme = {
+  #    package = pkgs.breeze-gtk;
+  #    name = "Breeze-Dark";
+  #  };
+  #  gtk4.extraConfig = {
+  #    gtk-application-prefer-dark-theme = true;
+  #  };
+  #};
   fonts = {
     fontconfig = {
       enable = true;
@@ -190,9 +210,9 @@
   services.openssh = {
     enable = true;
     # Forbid root login through SSH.
-    permitRootLogin = "no";
+    settings.PermitRootLogin = "no";
     # Use keys only. Remove if you want to SSH using password (not recommended)
-    passwordAuthentication = false;
+    settings.PasswordAuthentication = false;
   };
   xdg.portal = with pkgs; {
     enable = true;

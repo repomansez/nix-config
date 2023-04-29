@@ -44,9 +44,22 @@
           "tooltip-format-disconnected" = "MPD (disconnected)";
         };
         "wlr/workspaces" = {
-          on-click = "activate";
           disable-scroll = true;
+          on-click = "activate";
           all-outputs = false;
+          sort-by-number = true;
+          format = "{name} {icon}";
+          format-icons = {
+            "1" = "";
+            "2" = "";
+            "3" = "";
+            "4" = "";
+            "5" = " ";
+            "6" = " ";
+            urgent = "";
+            focused = "";
+            default = "";
+          };
         };
         "cpu" = {
           "format" = " {usage}%";

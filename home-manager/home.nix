@@ -102,6 +102,18 @@
     inputs.xdph.packages.${system}.hyprland-share-picker
     pcsx2
     rpcs3
+    chromium
+    konversation
+    kde-gtk-config
+    libsForQt5.dolphin
+    libsForQt5.dolphin-plugins
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.kio
+    libsForQt5.kio-extras
+    ffmpegthumbnailer
+    libsForQt5.ffmpegthumbs
+    ncmpcpp
+    mpc-cli
   ];
   # Enable home-manager and git
   # qt qt
@@ -116,20 +128,50 @@
   # gtkaka
   gtk = {
     enable = true;
-    theme = {
-      name = "breeze-gtk";
-      package = pkgs.breeze-gtk;
-    };
     iconTheme = {
-      name = "breeze";
       package = pkgs.breeze-icons;
+      name = "breeze-dark";
+    };
+    theme = {
+      package = pkgs.breeze-gtk;
+      name = "Breeze-Dark";
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
     };
   };
+  #gtk = {
+  #  enable = true;
+  #  theme = {
+  #    name = "breeze-gtk";
+  #    package = pkgs.breeze-gtk;
+  #  };
+  #  iconTheme = {
+  #    name = "breeze";
+  #    package = pkgs.breeze-icons;
+  #  };
+  #};
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
     userName = "repomansez";
     userEmail = "sbctani@protonmail.com";
+  };
+
+  services.mpd = {
+    enable = true;
+    package = inputs.spkgs.mpd;
+    #musicDirectory = "nfs://10.0.0.24/home/sex/data/music/";
+    musicDirectory = "/home/nigerius/nfs-music";
+    dbFile = "/home/nigerius/.local/share/mpd/database";
+    extraConfig = ''
+     audio_output {
+        type "pipewire"
+        name "piss"
+        }'';
+  };
+  services.mpdris2 = {
+    enable = false;
   };
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
