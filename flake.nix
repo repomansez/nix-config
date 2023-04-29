@@ -5,7 +5,6 @@
     # Nixpkgs
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    stablepkgs.url = "github:nixos/nixpkgs/nixos-22.11";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
@@ -38,7 +37,6 @@
 
   outputs = {
     nixpkgs,
-    stablepkgs,
     home-manager,
     hyprland,
     hyprwm-contrib,
@@ -65,7 +63,6 @@
       # eplace with your username@hostname
       "nigerius@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-	spkgs = stablepkgs.legacyPackages.x86_64-linux;	
         extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib hyprland-protocols xdph anyrun;}; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [

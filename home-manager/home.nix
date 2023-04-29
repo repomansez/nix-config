@@ -160,7 +160,6 @@
 
   services.mpd = {
     enable = true;
-    package = inputs.spkgs.mpd;
     #musicDirectory = "nfs://10.0.0.24/home/sex/data/music/";
     musicDirectory = "/home/nigerius/nfs-music";
     dbFile = "/home/nigerius/.local/share/mpd/database";
