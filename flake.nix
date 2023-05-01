@@ -46,6 +46,7 @@
     ...
   } @ inputs: {
     # formatter ig
+
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
@@ -61,7 +62,7 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       # eplace with your username@hostname
-      "nigerius@nixos" = home-manager.lib.homeManagerConfiguration {
+      "mewi@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib hyprland-protocols xdph anyrun;}; # Pass flake inputs to our config
         # > Our main home-manager configuration file <

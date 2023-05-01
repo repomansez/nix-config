@@ -19,7 +19,7 @@
         modules-center = [
         ];
         modules-right = [
-          #"mpd"
+          "mpd"
           "pulseaudio"
           "temperature"
           "cpu"
@@ -29,13 +29,15 @@
         ];
 
         "mpd" = {
-          "format" = "  {artist} - {album} - {title} {stateIcon}";
+          "format" = "{artist} - {album} - {title} {stateIcon}";
           "format-disconnected" = "";
           "format-stopped" = "";
           "unknown-tag" = "N/A";
           "interval" = 2;
           "on-click" = "${pkgs.mpc-cli}/bin/mpc toggle";
           "on-click-right" = "${pkgs.mpc-cli}/bin/mpc stop";
+          "on-scroll-up" = "${pkgs.mpc-cli}/bin/mpc volume +2";
+          "on-scroll-down" = "${pkgs.mpc-cli}/bin/mpc volume -2";
           "state-icons" = {
             "paused" = "";
             "playing" = "";

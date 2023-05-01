@@ -51,21 +51,21 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_BR.UTF-8";
-    LC_IDENTIFICATION = "pt_BR.UTF-8";
-    LC_MEASUREMENT = "pt_BR.UTF-8";
-    LC_MONETARY = "pt_BR.UTF-8";
-    LC_NAME = "pt_BR.UTF-8";
-    LC_NUMERIC = "pt_BR.UTF-8";
-    LC_PAPER = "pt_BR.UTF-8";
-    LC_TELEPHONE = "pt_BR.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "pt_BR.UTF-8";
   };
   # Extra filesystems
-  fileSystems."/home/nigerius/nfs" = {
+  fileSystems."/home/mewi/nfs" = {
     device = "10.0.0.24:/home/sex";
     fsType = "nfs";
-    options = [ "nfsvers=4.2" ];
+    options = ["nfsvers=4.2"];
   };
   # RTkit and pipewire
   security.rtkit.enable = true;
@@ -75,6 +75,8 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  # so dolphin doesnt take ages to start
+  services.udisks2.enable = true;
   environment.sessionVariables = rec {
     QT_STYLE_OVERRIDE = "kvantum";
   };
@@ -90,12 +92,28 @@
     libglvnd
     mesa
     vulkan-tools
+    gamescope
+    mangohud
+    xwayland
+    libkrb5
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXinerama
+    xorg.libXScrnSaver
+    libpng
+    libpulseaudio
+    libvorbis
+    stdenv.cc.cc.lib
+    libkrb5
+    keyutils
+    e2fsprogs
+    corectrl
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nigerius = {
+  users.users.mewi = {
     isNormalUser = true;
-    description = "Niggerus Maximus";
-    extraGroups = ["networkmanager" "wheel"];
+    description = "repomansez";
+    extraGroups = ["networkmanager" "wheel" "input"];
     packages = with pkgs; [git vim home-manager];
   };
 
@@ -121,8 +139,24 @@
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
+              xdg-user-dirs
+              gamescope
+              xwayland
+              dconf
+              mangohud
               libgdiplus
               zulu
+              xorg.libXcursor
+              xorg.libXi
+              xorg.libXinerama
+              xorg.libXScrnSaver
+              libpng
+              libpulseaudio
+              libvorbis
+              stdenv.cc.cc.lib
+              libkrb5
+              keyutils
+              e2fsprogs
             ];
         };
       };
@@ -156,14 +190,14 @@
   # Policykit
   security.polkit.enable = true;
   # Font shit ig
-  qt = {
-    enable = true;
-    style = {
-      name = "Breeze-Dark";
-      package = pkgs.breeze-qt5;
-    };
-    platformTheme = "kde";
-  };
+  #qt = {
+  #  enable = true;
+  #  style = {
+  #    name = "Breeze-Dark";
+  #    package = pkgs.breeze-qt5;
+  #  };
+  #  platformTheme = "kde";
+  #};
   #gtk = {
   #  enable = true;
   #  iconTheme = {
@@ -233,7 +267,7 @@
     enable = true;
   };
   programs.dconf.enable = true;
-  services.xserver.enable = true;
+  services.xserver.enable = false;
   services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";
