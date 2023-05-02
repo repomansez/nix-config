@@ -30,8 +30,11 @@
       // Hide the plugin info panel
       hide_plugin_info: true,
 
+      // Close window when a click outside the main box is received
+      close_on_click: true,
+
       plugins: [
-      "${pkgs.anyrun}/lib/libapplications.so",
+      "libapplications.so",
       "${pkgs.anyrun}/lib/libsymbols.so",
       "${pkgs.anyrun}/lib/libshell.so",
       "${pkgs.anyrun}/lib/libtranslate.so",
@@ -39,6 +42,7 @@
       "${pkgs.anyrun}/lib/libkidex.so",
       "${pkgs.anyrun}/lib/libstdin.so",
       "${pkgs.anyrun}/lib/librandr.so",
+      "libdictionary.so"
       ],
     )
   '';

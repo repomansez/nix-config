@@ -26,8 +26,10 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    ./linux-tkg.nix
+#    ./linux-tkg.nix
   ];
+  # Querneuli
+    
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -71,9 +73,11 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    audio.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
   # so dolphin doesnt take ages to start
   services.udisks2.enable = true;
@@ -108,6 +112,12 @@
     keyutils
     e2fsprogs
     corectrl
+    guitarix
+    gxplugins-lv2
+    pipewire.jack
+    helix
+    vulkan-headers
+    tomlplusplus
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mewi = {
@@ -244,14 +254,14 @@
   services.openssh = {
     enable = true;
     # Forbid root login through SSH.
-    settings.PermitRootLogin = "no";
+#    openssh.settings.permitRootLogin = "no";
     # Use keys only. Remove if you want to SSH using password (not recommended)
-    settings.PasswordAuthentication = false;
+#    openssh.settings.passwordAuthentication = false;
   };
   xdg.portal = with pkgs; {
     enable = true;
     #  wlr.enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    extraPortals = [inputs.xdph.packages.x86_64-linux.xdg-desktop-portal-hyprland];
   };
   hardware.opengl = {
     enable = true;

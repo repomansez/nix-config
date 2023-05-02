@@ -3,9 +3,9 @@
 
   inputs = {
     # Nixpkgs
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgsunst.url = "github:nixos/nixpkgs/nixos-unstable";
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -33,16 +33,19 @@
     # Anyrun shit
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
+  
+    rust-overlay.url = "github:oxalica/rust-overlay";
   };
-
   outputs = {
     nixpkgs,
+    nixpkgsunst,
     home-manager,
     hyprland,
     hyprwm-contrib,
     hyprland-protocols,
     xdph,
     anyrun,
+    rust-overlay,
     ...
   } @ inputs: {
     # formatter ig
@@ -64,7 +67,7 @@
       # eplace with your username@hostname
       "mewi@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib hyprland-protocols xdph anyrun;}; # Pass flake inputs to our config
+        extraSpecialArgs = {inherit inputs nixpkgsunst hyprland hyprwm-contrib hyprland-protocols xdph anyrun rust-overlay;}; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [
           ./home-manager/home.nix
