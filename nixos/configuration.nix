@@ -29,6 +29,7 @@
 #    ./linux-tkg.nix
   ];
   # Querneuli
+  boot.kernelPackages = pkgs.linuxPackages_zen;
     
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -117,7 +118,7 @@
     pipewire.jack
     helix
     vulkan-headers
-    tomlplusplus
+    foot 
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mewi = {
@@ -223,6 +224,7 @@
   #  };
   #};
   fonts = {
+    fontDir.enable = true;
     fontconfig = {
       enable = true;
       antialias = true;
@@ -230,7 +232,7 @@
     fonts = with pkgs; [
       fira-code
       mononoki
-      monocraft
+      inputs.nixpkgsunst.legacyPackages.x86_64-linux.monocraft
       font-awesome_5
       noto-fonts
       noto-fonts-cjk
@@ -260,7 +262,7 @@
   };
   xdg.portal = with pkgs; {
     enable = true;
-    #  wlr.enable = true;
+      wlr.enable = true;
     extraPortals = [inputs.xdph.packages.x86_64-linux.xdg-desktop-portal-hyprland];
   };
   hardware.opengl = {
@@ -268,16 +270,20 @@
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-      mesa
+      inputs.nixpkgsunst.legacyPackages.x86_64-linux.mesa
       pkgs.mesa.drivers
+      rocm-opencl-icd
+      rocm-opencl-runtime
+      vulkan-loader
       vulkan-tools
     ];
   };
   programs.steam = {
     enable = true;
   };
+  programs.sway.enable = true;
   programs.dconf.enable = true;
-  services.xserver.enable = false;
+  services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

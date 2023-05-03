@@ -101,12 +101,15 @@
     username = "mewi";
     homeDirectory = "/home/mewi";
   };
+  fonts = {
+    fontconfig.enable = true;
+  };
   # Add stuff for your user as you see fit:
   # programs.neovim.enable o= true;
   home.packages = with pkgs; [
     vim
     git
-    foot
+    #foot
     firefox
     discord
     neofetch
@@ -123,8 +126,6 @@
     noto-fonts
     noto-fonts-emoji
     noto-fonts-cjk
-    mononoki
-    monocraft
     font-awesome_5
     jellyfin-media-player
     libsForQt5.breeze-qt5
@@ -172,6 +173,11 @@
     prismlauncher
     pkgs.rust-bin.stable.latest.default
     nixpkgsunst.legacyPackages.x86_64-linux.libdisplay-info
+    nixpkgsunst.legacyPackages.x86_64-linux.monocraft
+    ## shouldnt need
+    pango
+    cairo
+    ## shouldnt need
   ];
   # Enable home-manager and git
   # qt qt
@@ -271,6 +277,11 @@
     QT_STYLE_OVERRIDE = "kvantum";
   };
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.nixpkgsunst.legacyPackages.x86_64-linux.hyprland;
+    extraConfig = builtins.readFile ../dotfiles/extrahypr.conf;
+  };
   wayland.windowManager.sway = {
     enable = true;
     config = rec {
@@ -282,8 +293,10 @@
         {command = "foot";}
       ];
     };
+  };
+  
     #package = inputs.hyprland.hyprland;
     #xwayland.enable = true;
     #extraConfig = builtins.readFile ../dotfiles/extrahypr.conf;
-  };
+  #};
 }
