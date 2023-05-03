@@ -11,7 +11,6 @@
   hyprwm-contrib,
   anyrun,
   fetchFromGitHub,
-  rust-overlay,
   ...
 }: {
   # You can import other home-manager modules here
@@ -24,7 +23,7 @@
     # You can also split up your configuration and import pieces of it here:
     #./nvim.nix
     ./waybar.nix
-    #./anyrun.nix
+    ./anyrun.nix
     ./foot.nix
     ./hyprpaper.nix
     #./mpd.nix
@@ -33,31 +32,19 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
-    inputs.rust-overlay.overlays.default
- #   (final: prev: {
- #    prismlauncher-git = final.pkgs.prismlauncher (oldAttrs: {
- #     src = fetchGit {
- #       owner = "PrismLauncher";
- #       repo = "PrismLauncher";
- #       fetchSubmodules = true;
- #       rev = "64ba5e4ed1456bed159cfe7b41ed9175b8baf5c4";
- #       sha256 = "";
- #     };
-  #  }); 
-  #  })
-#    (final : prev: {
-#    prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {
-#      src = pkgs.fetchFromGitHub {
-#        owner = "PrismLauncher";
-#        fetchSubmodules = true;
-#        repo = "PrismLauncher";
-#        rev = "64ba5e4ed1456bed159cfe7b41ed9175b8baf5c4";
-#        sha256 = "6uN7nF52xCIWt4/YcxMRe5T5Zun7DXX9y6shrMwOTok=";
-#        
-#      };
-#    });
-#    })
-      #anyrun.overlay
+    (final : prev: {
+    prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {
+      src = pkgs.fetchFromGitHub {
+        owner = "PrismLauncher";
+        fetchSubmodules = true;
+        repo = "PrismLauncher";
+        rev = "64ba5e4ed1456bed159cfe7b41ed9175b8baf5c4";
+        sha256 = "6uN7nF52xCIWt4/YcxMRe5T5Zun7DXX9y6shrMwOTok=";
+        
+      };
+    });
+    })
+      anyrun.overlay
       #  let
       #	(self: super: {
       # mpd = super.mpd.overrideAttrs (prev: {
@@ -139,7 +126,7 @@
     inputs.hyprwm-contrib.packages.${system}.grimblast
     wine
     lutris
-   # pkgs.anyrun
+    pkgs.anyrun
     nheko
     neochat
     xonotic
@@ -170,14 +157,8 @@
     winetricks
     gamemode
     exa
-    prismlauncher
-    pkgs.rust-bin.stable.latest.default
-    nixpkgsunst.legacyPackages.x86_64-linux.libdisplay-info
-    nixpkgsunst.legacyPackages.x86_64-linux.monocraft
-    ## shouldnt need
-    pango
-    cairo
-    ## shouldnt need
+    prismlauncher-git # temporary fix for meson bug
+    monocraft
   ];
   # Enable home-manager and git
   # qt qt
@@ -279,7 +260,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.nixpkgsunst.legacyPackages.x86_64-linux.hyprland;
     extraConfig = builtins.readFile ../dotfiles/extrahypr.conf;
   };
   wayland.windowManager.sway = {
@@ -288,9 +268,7 @@
       modifier = "Mod4";
       terminal = "foot";
       startup = [
-        {command = "kitty";}
-        {command = "alacritty";}
-        {command = "foot";}
+        {command = "firefox";}
       ];
     };
   };
