@@ -31,13 +31,18 @@
   # Querneuli
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # Some tkg patches
-  boot.kernelPatches =  [{
-   patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;
-   patch1 = ./kernelpatches/0002-clear-patches.patch;
-   patch2 = ./kernelpatches/0009-glitched-bmq.patch;
-   patch3 = ./kernelpatches/0012-misc-additions.patch;
-   patch4 = ./kernelpatches/0013-optimize_harder_O3.patch;
-  }];
+  boot.kernelPatches = [
+    {
+      patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;
+      patch1 = ./kernelpatches/0002-clear-patches.patch;
+      patch2 = ./kernelpatches/0007-v6.3-fsync1_via_futex_waitv.patch;
+      patch3 = ./kernelpatches/0007-v6.3-winesync.patch;
+      patch5 = ./kernelpatches/0009-prjc_v6.3-r0.patch;
+      patch6 = ./kernelpatches/0009-glitched-bmq.patch;
+      patch7 = ./kernelpatches/0012-misc-additions.patch;
+      patch8 = ./kernelpatches/0013-optimize_harder_O3.patch;
+    }
+  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -176,7 +181,7 @@
               libkrb5
               keyutils
               e2fsprogs
-	      gst_all_1.gst-vaapi
+              gst_all_1.gst-vaapi
               gst_all_1.gstreamer
               gst_all_1.gst-plugins-ugly
               gst_all_1.gst-plugins-bad

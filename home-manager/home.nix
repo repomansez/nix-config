@@ -158,6 +158,7 @@
     exa
     prismlauncher-git # temporary fix for meson bug
     monocraft
+    yt-dlp
   ];
   # Enable home-manager and git
   # qt qt
