@@ -32,7 +32,6 @@
     # Anyrun shit
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
-  
   };
   outputs = {
     nixpkgs,

@@ -26,11 +26,19 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-#    ./linux-tkg.nix
+    #    ./linux-tkg.nix
   ];
   # Querneuli
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-    
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Some tkg patches
+  boot.kernelPatches =  [{
+   patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;
+   patch1 = ./kernelpatches/0002-clear-patches.patch;
+   patch2 = ./kernelpatches/0009-glitched-bmq.patch;
+   patch3 = ./kernelpatches/0012-misc-additions.patch;
+   patch4 = ./kernelpatches/0013-optimize_harder_O3.patch;
+  }];
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -118,7 +126,7 @@
     pipewire.jack
     helix
     vulkan-headers
-    foot 
+    foot
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mewi = {
@@ -168,6 +176,11 @@
               libkrb5
               keyutils
               e2fsprogs
+	      gst_all_1.gst-vaapi
+              gst_all_1.gstreamer
+              gst_all_1.gst-plugins-ugly
+              gst_all_1.gst-plugins-bad
+              gst_all_1.gst-plugins-good
             ];
         };
       };
@@ -256,13 +269,13 @@
   services.openssh = {
     enable = true;
     # Forbid root login through SSH.
-#    openssh.settings.permitRootLogin = "no";
+    #    openssh.settings.permitRootLogin = "no";
     # Use keys only. Remove if you want to SSH using password (not recommended)
-#    openssh.settings.passwordAuthentication = false;
+    #    openssh.settings.passwordAuthentication = false;
   };
   xdg.portal = with pkgs; {
     enable = true;
-      wlr.enable = true;
+    wlr.enable = true;
     extraPortals = [inputs.xdph.packages.x86_64-linux.xdg-desktop-portal-hyprland];
   };
   hardware.opengl = {
@@ -284,6 +297,8 @@
   programs.sway.enable = true;
   programs.dconf.enable = true;
   services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
   services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

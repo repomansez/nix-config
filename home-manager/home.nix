@@ -32,18 +32,17 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
-    (final : prev: {
-    prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {
-      src = pkgs.fetchFromGitHub {
-        owner = "PrismLauncher";
-        fetchSubmodules = true;
-        repo = "PrismLauncher";
-        rev = "64ba5e4ed1456bed159cfe7b41ed9175b8baf5c4";
-        sha256 = "6uN7nF52xCIWt4/YcxMRe5T5Zun7DXX9y6shrMwOTok=";
-        
-      };
-    });
-    })
+      (final: prev: {
+        prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {
+          src = pkgs.fetchFromGitHub {
+            owner = "PrismLauncher";
+            fetchSubmodules = true;
+            repo = "PrismLauncher";
+            rev = "64ba5e4ed1456bed159cfe7b41ed9175b8baf5c4";
+            sha256 = "6uN7nF52xCIWt4/YcxMRe5T5Zun7DXX9y6shrMwOTok=";
+          };
+        });
+      })
       anyrun.overlay
       #  let
       #	(self: super: {
@@ -272,9 +271,9 @@
       ];
     };
   };
-  
-    #package = inputs.hyprland.hyprland;
-    #xwayland.enable = true;
-    #extraConfig = builtins.readFile ../dotfiles/extrahypr.conf;
+
+  #package = inputs.hyprland.hyprland;
+  #xwayland.enable = true;
+  #extraConfig = builtins.readFile ../dotfiles/extrahypr.conf;
   #};
 }
