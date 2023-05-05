@@ -16,6 +16,7 @@
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
+    inputs.chaotic.nixosModules.default
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-cpu-amd-pstate
     inputs.hardware.nixosModules.common-pc-ssd
@@ -29,20 +30,19 @@
     #    ./linux-tkg.nix
   ];
   # Querneuli
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
   # Some tkg patches
-  boot.kernelPatches = [
-    {
-      patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;
-      patch1 = ./kernelpatches/0002-clear-patches.patch;
-      patch2 = ./kernelpatches/0007-v6.3-fsync1_via_futex_waitv.patch;
-      patch3 = ./kernelpatches/0007-v6.3-winesync.patch;
-      patch5 = ./kernelpatches/0009-prjc_v6.3-r0.patch;
-      patch6 = ./kernelpatches/0009-glitched-bmq.patch;
-      patch7 = ./kernelpatches/0012-misc-additions.patch;
-      patch8 = ./kernelpatches/0013-optimize_harder_O3.patch;
-    }
-  ];
+#  boot.kernelPatches = [
+#      {patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;}
+#      {patch = ./kernelpatches/0002-clear-patches.patch;}
+#      {patch = ./kernelpatches/0003-glitched-base.patch;}
+#      {patch = ./kernelpatches/0007-v6.3-fsync1_via_futex_waitv.patch;}
+#      {patch = ./kernelpatches/0007-v6.3-winesync.patch;}
+#      {patch = ./kernelpatches/0009-prjc_v6.3-r0.patch;}
+#      {patch = ./kernelpatches/0009-glitched-bmq.patch;}
+#      {patch = ./kernelpatches/0012-misc-additions.patch;}
+#      {patch = ./kernelpatches/0013-optimize_harder_O3.patch;}
+#  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -99,6 +99,7 @@
     QT_STYLE_OVERRIDE = "kvantum";
   };
   environment.systemPackages = with pkgs; [
+    pkgs.input-leap_git
     vim
     git
     rtkit
@@ -110,7 +111,7 @@
     libglvnd
     mesa
     vulkan-tools
-    gamescope
+    pkgs.gamescope_git
     mangohud
     xwayland
     libkrb5
@@ -144,6 +145,11 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
+      (self: super: {
+        linuxPackages_tkg = pkgs.linuxPackagesFor (pkgs.linux_latest.override {
+          ignoreConfigErrors = true;
+        });
+        })
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
       # Or define it inline, for example:
