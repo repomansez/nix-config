@@ -109,8 +109,8 @@
     virtualgl
     pciutils
     libglvnd
-    mesa
-    vulkan-tools
+    #mesa_git
+    #vulkan-tools
     pkgs.gamescope_git
     mangohud
     xwayland
@@ -131,7 +131,8 @@
     gxplugins-lv2
     pipewire.jack
     helix
-    vulkan-headers
+    pkgs.vulkan-headers_next
+    #vulkan-headers
     foot
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -166,11 +167,15 @@
         # hyprland-share-picker = inputs.xdph.packages.${prev.system}.hyprland-share-picker.override {inherit hyprland;};
         #};
 
+	chaotic.steam.extraCompatPackages = with pkgs; [
+	  luxtorpedia
+  	  proton-ge-custom
+        ];
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
               xdg-user-dirs
-              gamescope
+              pkgs.gamescope_git
               xwayland
               dconf
               mangohud
@@ -245,8 +250,13 @@
   #  };
   #  gtk4.extraConfig = {
   #    gtk-application-prefer-dark-theme = true;
-  #  };
+  #  ;
   #};
+  
+
+  # Chaotic 
+  #chaotic.mesa-git.enable = true;
+  
   fonts = {
     fontDir.enable = true;
     fontconfig = {
@@ -294,11 +304,10 @@
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-      inputs.nixpkgsunst.legacyPackages.x86_64-linux.mesa
-      pkgs.mesa.drivers
       rocm-opencl-icd
       rocm-opencl-runtime
-      vulkan-loader
+      #vulkan-loader
+      pkgs.vulkan-loader_next
       vulkan-tools
     ];
   };
