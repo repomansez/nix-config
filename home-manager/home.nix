@@ -108,7 +108,8 @@
     git
     #foot
     firefox
-    discord
+    #discord
+    webcord-vencord
     neofetch
     grim
     slurp
