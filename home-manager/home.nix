@@ -33,6 +33,17 @@
     # You can add overlays here
     overlays = [
       (final: prev: {
+        sixfourgram = pkgs.tdesktop.overrideAttrs (finalAttrs: previousAttrs: {
+          src = pkgs.fetchFromGitHub {
+            owner = "TDesktop-x64";
+            fetchSubmodules = true;
+            repo = "tdesktop";
+            rev = "57c01bbfb18ce0a63fe86d7e998f4a9ad7356915";
+            sha256 = "SlxFZTceKqeHe5GdDyS39U7UGSxrd/weoAjL496dEOE=";
+          };
+        });  
+      })
+      (final: prev: {
         prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {
           src = pkgs.fetchFromGitHub {
             owner = "PrismLauncher";
@@ -129,7 +140,8 @@
     nheko
     neochat
     xonotic
-    tdesktop
+    #tdesktop
+    sixfourgram
     killall
     wget
     obs-studio
