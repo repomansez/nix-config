@@ -168,8 +168,8 @@
         #};
 
 	chaotic.steam.extraCompatPackages = with pkgs; [
-	  luxtorpedia
-  	  proton-ge-custom
+	  pkgs.luxtorpedia
+  	  pkgs.proton-ge-custom
         ];
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
@@ -197,6 +197,7 @@
               gst_all_1.gst-plugins-ugly
               gst_all_1.gst-plugins-bad
               gst_all_1.gst-plugins-good
+	      pkgs.luxtorpedia
             ];
         };
       };
