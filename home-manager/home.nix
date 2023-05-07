@@ -41,21 +41,21 @@
             rev = "57c01bbfb18ce0a63fe86d7e998f4a9ad7356915";
             sha256 = "SlxFZTceKqeHe5GdDyS39U7UGSxrd/weoAjL496dEOE=";
           };
-        });  
+        });
       })
       (final: prev: {
         flameshot-notshit = pkgs.flameshot.overrideAttrs (finalAttrs: previousAttrs: {
-        cmakeFlags = [
-          "-DUSE_WAYLAND_GRIM=1"
-        ];
-        src = pkgs.fetchFromGitHub{
-          owner = "repomansez";
-          fetchSubmodules = true;
-          repo = "flameshot";
-          rev = "583e5dcddc9b6f8e70fa6a9069d64dbd74b3c97d";
-          sha256 = "r81JZf5waFHY72eX/JkCY7rsNea9oTVtrs5PPDD9UWo=";
-        };
-      });
+          cmakeFlags = [
+            "-DUSE_WAYLAND_GRIM=1"
+          ];
+          src = pkgs.fetchFromGitHub {
+            owner = "repomansez";
+            fetchSubmodules = true;
+            repo = "flameshot";
+            rev = "583e5dcddc9b6f8e70fa6a9069d64dbd74b3c97d";
+            sha256 = "r81JZf5waFHY72eX/JkCY7rsNea9oTVtrs5PPDD9UWo=";
+          };
+        });
       })
       (final: prev: {
         prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {

@@ -32,17 +32,17 @@
   # Querneuli
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
   # Some tkg patches
-#  boot.kernelPatches = [
-#      {patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;}
-#      {patch = ./kernelpatches/0002-clear-patches.patch;}
-#      {patch = ./kernelpatches/0003-glitched-base.patch;}
-#      {patch = ./kernelpatches/0007-v6.3-fsync1_via_futex_waitv.patch;}
-#      {patch = ./kernelpatches/0007-v6.3-winesync.patch;}
-#      {patch = ./kernelpatches/0009-prjc_v6.3-r0.patch;}
-#      {patch = ./kernelpatches/0009-glitched-bmq.patch;}
-#      {patch = ./kernelpatches/0012-misc-additions.patch;}
-#      {patch = ./kernelpatches/0013-optimize_harder_O3.patch;}
-#  ];
+  #  boot.kernelPatches = [
+  #      {patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;}
+  #      {patch = ./kernelpatches/0002-clear-patches.patch;}
+  #      {patch = ./kernelpatches/0003-glitched-base.patch;}
+  #      {patch = ./kernelpatches/0007-v6.3-fsync1_via_futex_waitv.patch;}
+  #      {patch = ./kernelpatches/0007-v6.3-winesync.patch;}
+  #      {patch = ./kernelpatches/0009-prjc_v6.3-r0.patch;}
+  #      {patch = ./kernelpatches/0009-glitched-bmq.patch;}
+  #      {patch = ./kernelpatches/0012-misc-additions.patch;}
+  #      {patch = ./kernelpatches/0013-optimize_harder_O3.patch;}
+  #  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -172,7 +172,7 @@
         linuxPackages_tkg = pkgs.linuxPackagesFor (pkgs.linux_latest.override {
           ignoreConfigErrors = true;
         });
-        })
+      })
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
       # Or define it inline, for example:
@@ -189,9 +189,9 @@
         # hyprland-share-picker = inputs.xdph.packages.${prev.system}.hyprland-share-picker.override {inherit hyprland;};
         #};
 
-	chaotic.steam.extraCompatPackages = with pkgs; [
-	  pkgs.luxtorpedia
-  	  pkgs.proton-ge-custom
+        chaotic.steam.extraCompatPackages = with pkgs; [
+          pkgs.luxtorpedia
+          pkgs.proton-ge-custom
         ];
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
@@ -219,7 +219,7 @@
               gst_all_1.gst-plugins-ugly
               gst_all_1.gst-plugins-bad
               gst_all_1.gst-plugins-good
-	      pkgs.luxtorpedia
+              pkgs.luxtorpedia
             ];
         };
       };
@@ -275,11 +275,10 @@
   #    gtk-application-prefer-dark-theme = true;
   #  ;
   #};
-  
 
-  # Chaotic 
+  # Chaotic
   #chaotic.mesa-git.enable = true;
-  
+
   fonts = {
     fontDir.enable = true;
     fontconfig = {
