@@ -106,9 +106,7 @@
   home.packages = with pkgs; [
     vim
     git
-    #foot
     firefox
-    #discord
     webcord-vencord
     neofetch
     grim
@@ -141,12 +139,10 @@
     nheko
     neochat
     xonotic
-    #tdesktop
     sixfourgram
     killall
     wget
     obs-studio
-    #inputs.nixpkgsunst.xdg-desktop-portal-hyprland
     inputs.xdph.packages.${system}.hyprland-share-picker
     pcsx2
     rpcs3
