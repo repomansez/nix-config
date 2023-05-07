@@ -146,7 +146,6 @@
     inputs.xdph.packages.${system}.hyprland-share-picker
     pcsx2
     rpcs3
-    chromium
     konversation
     kde-gtk-config
     libsForQt5.dolphin
@@ -168,6 +167,8 @@
     prismlauncher-git # temporary fix for meson bug
     monocraft
     yt-dlp
+    vscodium-fhs
+    ungoogled-chromium
   ];
   # Enable home-manager and git
   # qt qt
