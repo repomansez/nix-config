@@ -57,46 +57,7 @@
           };
         });
       })
-      (final: prev: {
-        prismlauncher-git = pkgs.prismlauncher.overrideAttrs (finalAttrs: previousAttrs: {
-          src = pkgs.fetchFromGitHub {
-            owner = "PrismLauncher";
-            fetchSubmodules = true;
-            repo = "PrismLauncher";
-            rev = "64ba5e4ed1456bed159cfe7b41ed9175b8baf5c4";
-            sha256 = "6uN7nF52xCIWt4/YcxMRe5T5Zun7DXX9y6shrMwOTok=";
-          };
-        });
-      })
       anyrun.overlay
-      #  let
-      #	(self: super: {
-      # mpd = super.mpd.overrideAttrs (prev: {
-      #version = "git";
-      #   mesonFlags = [
-      #     "-Dtest=true"
-      #     "-Dmanpages=true"
-      #     "-Dhtml_manual=true"
-      #     "-Ddocumentation=disabled"
-      #   ];
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "MusicPlayerDaemon";
-      #        repo = "MPD";
-      #        rev = "99885c4cbcbb5545708104825cb56d67e20c4517";
-      #        sha256 = "BajG4d3hWkxFHQ8Xa1WbwLrEmFucKFUIinCrPuUNT1c=";
-      #      };
-      #  });
-      #})
-      #in
-      #  nixpkgs.overlays = [ mpd_overlay ];
-      # # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   prismlauncher = final.hello.prismlauncher (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
     ];
     config = {
       # Configure your nixpkgs instance
@@ -178,7 +139,7 @@
     winetricks
     gamemode
     exa
-    prismlauncher-git # temporary fix for meson bug
+    prismlauncher 
     monocraft
     yt-dlp
     vscodium-fhs
