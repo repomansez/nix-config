@@ -36,7 +36,6 @@
   };
   outputs = {
     nixpkgs,
-    nixpkgsunst,
     home-manager,
     hyprland,
     hyprwm-contrib,
@@ -52,7 +51,7 @@
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs hyprland xdph;}; # Pass flake inputs to our config
+        specialArgs = {inherit inputs;}; # Pass flake inputs to our config
         # > Our main nixos configuration file <
         modules = [./nixos/configuration.nix];
       };
@@ -64,11 +63,11 @@
       # eplace with your username@hostname
       "mewi@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs hyprland hyprwm-contrib hyprland-protocols xdph anyrun;}; # Pass flake inputs to our config
+        extraSpecialArgs = {inherit inputs;}; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [
           ./home-manager/home.nix
-          #hyprland.homeManagerModules.default
+          # hyprland.homeManagerModules.default
         ];
       };
     };

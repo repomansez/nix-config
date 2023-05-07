@@ -10,7 +10,6 @@
   nixosTests,
   config,
   pkgs,
-  hyprland,
   ...
 }: {
   # You can import other NixOS modules here
@@ -288,7 +287,7 @@
     fonts = with pkgs; [
       fira-code
       mononoki
-      inputs.nixpkgsunst.legacyPackages.x86_64-linux.monocraft
+      monocraft
       font-awesome_5
       noto-fonts
       noto-fonts-cjk

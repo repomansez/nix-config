@@ -1,11 +1,12 @@
 {
   pkgs,
-  hyprland,
+  inputs,
+  #  hyprland,
   ...
 }: {
   programs.waybar = {
     enable = true;
-    package = hyprland.packages."x86_64-linux".waybar-hyprland;
+    package = inputs.hyprland.packages."x86_64-linux".waybar-hyprland;
     "style" = ../dotfiles/style.css;
     settings = [
       {

@@ -2,14 +2,13 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 {
   inputs,
-  nixpkgsunst,
   lib,
   config,
   pkgs,
-  hyprland,
-  xdph,
-  hyprwm-contrib,
-  anyrun,
+  #hyprland,
+  #xdph,
+  #  hyprwm-contrib,
+  #  anyrun,
   fetchFromGitHub,
   ...
 }: {
@@ -32,6 +31,9 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
+      (final: prev: {
+        ass = inputs.xdph.packages.x86_64-linux;
+      })
       (final: prev: {
         sixfourgram = pkgs.tdesktop.overrideAttrs (finalAttrs: previousAttrs: {
           src = pkgs.fetchFromGitHub {
@@ -57,7 +59,7 @@
           };
         });
       })
-      anyrun.overlay
+      inputs.anyrun.overlay
     ];
     config = {
       # Configure your nixpkgs instance
@@ -118,7 +120,9 @@
     killall
     wget
     obs-studio
-    inputs.xdph.packages.${system}.hyprland-share-picker
+    #inputs.xdph.packages.${system}.hyprland-share-picker
+    #ass.hyprland-share-picker
+    pkgs.hyprland-share-picker
     pcsx2
     rpcs3
     konversation
@@ -139,7 +143,7 @@
     winetricks
     gamemode
     exa
-    prismlauncher 
+    prismlauncher
     monocraft
     yt-dlp
     vscodium-fhs
