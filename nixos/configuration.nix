@@ -83,6 +83,21 @@
     fsType = "nfs";
     options = ["nfsvers=4.2"];
   };
+  fileSystems."/home/mewi/vm" = {
+    device = "/dev/mapper/lvmtoba-games";
+    fsType = "ext4";
+    options = ["defaults"];
+  };
+  fileSystems."/home/mewi/music" = {
+    device = "/dev/mapper/lvmfeces-music";
+    fsType = "ext4";
+    options = ["defaults"];
+  };
+  fileSystems."/home/mewi/data" = {
+    device = "/dev/mapper/lvmfeces-data";
+    fsType = "ext4";
+    options = ["defaults"];
+  };
   # RTkit and pipewire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -97,6 +112,13 @@
   services.udisks2.enable = true;
   environment.sessionVariables = rec {
     QT_STYLE_OVERRIDE = "kvantum";
+  };
+  environment.etc.crypttab = {
+    enable = true;
+    text = ''
+      urine /dev/sdb /root/fart.png header=/root/pee.png,nofail
+      feces /dev/sdc /root/barracuda-sd.jpg header=/root/barracuda.img,nofail
+    '';
   };
   environment.systemPackages = with pkgs; [
     pkgs.input-leap_git
