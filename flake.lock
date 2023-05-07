@@ -35,11 +35,11 @@
         "yuzu-ea-git-src": "yuzu-ea-git-src"
       },
       "locked": {
-        "lastModified": 1683475244,
-        "narHash": "sha256-rsNITnBJq8ymJj5mv/r4uRnptxNokPKWeDpuWsRpjGI=",
+        "lastModified": 1683481516,
+        "narHash": "sha256-LQEAt7Jt6mQjm6zx+jOflft6utgn0tKTz8nilorTqNA=",
         "owner": "chaotic-cx",
         "repo": "nyx",
-        "rev": "2c75e5ad0a13b60f0e1c5926c5078a2d32dff066",
+        "rev": "a5d804f08693ff33af005958a867baa5bebef818",
         "type": "github"
       },
       "original": {
