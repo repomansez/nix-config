@@ -110,7 +110,7 @@
     dunst
     mpv
     inputs.hyprwm-contrib.packages.${system}.grimblast
-    wine
+    wine64
     lutris
     pkgs.anyrun
     nheko
