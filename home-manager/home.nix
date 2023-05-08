@@ -149,6 +149,7 @@
     vscodium-fhs
     ungoogled-chromium
     flameshot-notshit
+    gsettings-desktop-schemas
   ];
   # Enable home-manager and git
   # qt qt

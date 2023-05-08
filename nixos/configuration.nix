@@ -153,8 +153,8 @@
     pipewire.jack
     helix
     pkgs.vulkan-headers_next
-    #vulkan-headers
     foot
+    gsettings-desktop-schemas
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mewi = {
@@ -195,6 +195,7 @@
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
+              gsettings-desktop-schemas 
               xdg-user-dirs
               pkgs.gamescope_git
               xwayland
@@ -332,8 +333,13 @@
       vulkan-tools
     ];
   };
-  programs.steam = {
+  programs.steam = with pkgs; {
     enable = true;
+    package = steam.override {
+            extraProfile = '' # Temporary fix for Steam Beta not finding gsetting schemas
+        export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
+      '';
+    };
   };
   programs.sway.enable = true;
   programs.dconf.enable = true;
