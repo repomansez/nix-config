@@ -25,6 +25,7 @@
     ./anyrun.nix
     ./foot.nix
     ./hyprpaper.nix
+    ./dunst.nix
     #./mpd.nix
   ];
 
@@ -107,7 +108,7 @@
     playerctl
     mpdris2
     libnotify
-    dunst
+    #dunst
     mpv
     inputs.hyprwm-contrib.packages.${system}.grimblast
     wine64
