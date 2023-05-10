@@ -6,6 +6,10 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    raf = { 
+      url = "github:notashelf/nyx/";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,12 +40,14 @@
   };
   outputs = {
     nixpkgs,
+    chaotic,
     home-manager,
     hyprland,
     hyprwm-contrib,
     hyprland-protocols,
     xdph,
     anyrun,
+    raf,
     ...
   } @ inputs: {
     # formatter ig
