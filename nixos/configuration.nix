@@ -184,18 +184,15 @@
     # Configure your nixpkgs instance
     config = {
       nixpkgs.config.packageOverrides = pkgs: {
-        #       xdg-desktop-portal-hyprland = inputs.xdph.packages.${prev.system}.default.override {
-        # hyprland-share-picker = inputs.xdph.packages.${prev.system}.hyprland-share-picker.override {inherit hyprland;};
-        #};
-
-        chaotic.steam.extraCompatPackages = with pkgs; [
-          pkgs.luxtorpedia
-          pkgs.proton-ge-custom
-        ];
+# steam = pkgs.steam.override {
+         chaotic.steam.extraCompatPackages = with pkgs; [
+           pkgs.luxtorpedia
+           pkgs.proton-ge-custom
+         ];
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
-              gsettings-desktop-schemas 
+              #gsettings-desktop-schemas
               xdg-user-dirs
               pkgs.gamescope_git
               xwayland
@@ -244,8 +241,6 @@
       auto-optimise-store = true;
     };
   };
-
-  # FIXME: Add the rest of your current configuration
 
   #  Set your hostname
   networking.hostName = "nixos";
@@ -336,17 +331,13 @@
   programs.steam = with pkgs; {
     enable = true;
     package = steam.override {
-            extraProfile = '' # Temporary fix for Steam Beta not finding gsetting schemas
-        export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
+      extraProfile = ''        # Temporary fix for Steam Beta not finding gsetting schemas
+               export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
       '';
     };
   };
   programs.sway.enable = true;
   programs.dconf.enable = true;
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.videoDrivers = ["amdgpu"];
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";
 }
