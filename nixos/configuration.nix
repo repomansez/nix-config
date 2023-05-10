@@ -120,7 +120,7 @@
     '';
   };
   environment.systemPackages = with pkgs; [
-    pkgs.input-leap_git
+    nil
     vim
     git
     rtkit
