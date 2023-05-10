@@ -21,6 +21,7 @@
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-gpu-amd
     inputs.hyprland.nixosModules.default
+    ./steam.nix
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
 
@@ -185,10 +186,10 @@
     config = {
       nixpkgs.config.packageOverrides = pkgs: {
 # steam = pkgs.steam.override {
-         chaotic.steam.extraCompatPackages = with pkgs; [
-           pkgs.luxtorpedia
-           pkgs.proton-ge-custom
-         ];
+      #   chaotic.steam.extraCompatPackages = with pkgs; [
+      #     pkgs.luxtorpedia
+      #     pkgs.proton-ge-custom
+      #   ];
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
@@ -330,6 +331,9 @@
   };
   programs.steam = with pkgs; {
     enable = true;
+    extraCompatPackages = with pkgs; [
+      inputs.raf.packages.${pkgs.system}.proton-ge
+    ];
     package = steam.override {
       extraProfile = ''        # Temporary fix for Steam Beta not finding gsetting schemas
                export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
