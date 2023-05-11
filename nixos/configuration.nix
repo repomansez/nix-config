@@ -30,7 +30,7 @@
     #    ./linux-tkg.nix
   ];
   # Querneuli
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
   # Some tkg patches
   #  boot.kernelPatches = [
   #      {patch = ./kernelpatches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch;}
@@ -332,16 +332,23 @@
   programs.steam = with pkgs; {
     enable = true;
     extraCompatPackages = with pkgs; [
-      inputs.raf.packages.${pkgs.system}.proton-ge
+      inputs.nix-gaming.packages.${pkgs.system}.proton-ge
     ];
-    package = steam.override {
-      extraProfile = ''        # Temporary fix for Steam Beta not finding gsetting schemas
-               export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
-      '';
-    };
+   # package = steam.override {
+   #   extraProfile = ''        # Temporary fix for Steam Beta not finding gsetting schemas
+   #            export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
+   #   '';
+    #};
   };
   programs.sway.enable = true;
   programs.dconf.enable = true;
+  # Cachix stuff
+
+  nix.settings = {
+    substituters = ["https://nix-gaming.cachix.org"];
+    trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";
 }
