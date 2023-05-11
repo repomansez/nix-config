@@ -5,10 +5,6 @@
   lib,
   config,
   pkgs,
-  #hyprland,
-  #xdph,
-  #  hyprwm-contrib,
-  #  anyrun,
   fetchFromGitHub,
   ...
 }: {
