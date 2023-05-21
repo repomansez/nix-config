@@ -78,7 +78,9 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable o= true;
   home.packages = with pkgs; [
+    libreoffice
     vim
+    scrcpy
     git
     firefox
     webcord-vencord
@@ -181,6 +183,20 @@
     enable = true;
     userName = "repomansez";
     userEmail = "sbctani@protonmail.com";
+  };
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+        return {
+          font = wezterm.font("Monocraft"),
+          font_size = 10.0,
+          color_scheme = "Tomorrow Night",
+          hide_tab_bar_if_only_one_tab = true,
+          keys = {
+            {key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
+          }
+        }
+  '';
   };
   programs.bash = {
     enable = true;
