@@ -49,13 +49,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  #boot.initrd.secrets = {
+  #  "/crypto_keyfile.bin" = null;
+  #};
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-c28f4828-a1aa-4b10-96ae-1dffc24a460e".device = "/dev/disk/by-uuid/c28f4828-a1aa-4b10-96ae-1dffc24a460e";
-  boot.initrd.luks.devices."luks-c28f4828-a1aa-4b10-96ae-1dffc24a460e".keyFile = "/crypto_keyfile.bin";
+  # boot.initrd.luks.devices."nigger".device = "/dev/disk/by-uuid/804de142-094c-41f1-b865-84847d1cb0fd";
+  # boot.initrd.luks.devices."luks-c28f4828-a1aa-4b10-96ae-1dffc24a460e".device = "/dev/disk/by-uuid/c28f4828-a1aa-4b10-96ae-1dffc24a460e";
+  # boot.initrd.luks.devices."luks-c28f4828-a1aa-4b10-96ae-1dffc24a460e".keyFile = "/crypto_keyfile.bin";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -121,6 +122,7 @@
     '';
   };
   environment.systemPackages = with pkgs; [
+    btrfs-progs
     nil
     vim
     git
@@ -185,11 +187,11 @@
     # Configure your nixpkgs instance
     config = {
       nixpkgs.config.packageOverrides = pkgs: {
-# steam = pkgs.steam.override {
-      #   chaotic.steam.extraCompatPackages = with pkgs; [
-      #     pkgs.luxtorpedia
-      #     pkgs.proton-ge-custom
-      #   ];
+        # steam = pkgs.steam.override {
+        #   chaotic.steam.extraCompatPackages = with pkgs; [
+        #     pkgs.luxtorpedia
+        #     pkgs.proton-ge-custom
+        #   ];
         steam = pkgs.steam.override {
           extraPkgs = pkgs:
             with pkgs; [
@@ -334,10 +336,10 @@
     extraCompatPackages = with pkgs; [
       inputs.nix-gaming.packages.${pkgs.system}.proton-ge
     ];
-   # package = steam.override {
-   #   extraProfile = ''        # Temporary fix for Steam Beta not finding gsetting schemas
-   #            export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
-   #   '';
+    # package = steam.override {
+    #   extraProfile = ''        # Temporary fix for Steam Beta not finding gsetting schemas
+    #            export GSETTINGS_SCHEMA_DIR="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}/glib-2.0/schemas/"
+    #   '';
     #};
   };
   programs.sway.enable = true;
