@@ -78,6 +78,7 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable o= true;
   home.packages = with pkgs; [
+    calibre
     libreoffice
     vim
     scrcpy
@@ -146,7 +147,7 @@
     monocraft
     yt-dlp
     vscodium-fhs
-    ungoogled-chromium
+    inputs.cromo.legacyPackages.x86_64-linux.ungoogled-chromium
     flameshot-notshit
     gsettings-desktop-schemas
   ];

@@ -1,10 +1,11 @@
 {
-a description = "Your new nix config";
+ description = "Your new nix config";
 
   inputs = {
     # Nixpkgs
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    cromo.url = "github:nixos/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
     # Home manager
@@ -38,6 +39,7 @@ a description = "Your new nix config";
   outputs = {
     nixpkgs,
     chaotic,
+    cromo,
     nix-gaming,
     home-manager,
     hyprland,
